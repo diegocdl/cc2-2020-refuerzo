@@ -1,7 +1,7 @@
-import java.util.Scanner;
+import java.io.*;
 
 public class FacturaTest {
-  public static void main(String[] args) {
+  public static void main(String[] args) throws Exception {
     // Factura f = new Factura("1234-K", "Juan Perez", "01/08/2020");
     // f.agregarProducto(1, "Coca Cola 500ml", 5.00);
     // f.agregarProducto(5, "Tortrix   ", 2.50);
@@ -9,17 +9,17 @@ public class FacturaTest {
     // f.setDescuento(0.10);
     // System.out.println(f);
 
-    Scanner sc = new Scanner(System.in);
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     System.out.println("Sistema de Facturacion Supermercado La Bendicion");
     
     System.out.print("Nit: ");
-    String nit = sc.nextLine();
+    String nit = br.readLine();
     
     System.out.print("Nombre: ");
-    String nombre = sc.nextLine();
+    String nombre = br.readLine();
 
     System.out.print("Fecha: ");
-    String fecha = sc.nextLine();
+    String fecha = br.readLine();
 
     Factura f = new Factura(nit, nombre, fecha);
 
@@ -30,19 +30,17 @@ public class FacturaTest {
     System.out.println("\nIngrese detalle de factura: ");
     while (true) {
       System.out.print("Cantidad: ");
-      cant = sc.nextInt();
-      sc.nextLine();
+      cant = Integer.parseInt(br.readLine());
 
       if (cant == 0) {
         break;
       }
       
       System.out.print("Descripción: ");
-      descripcion = sc.nextLine();
+      descripcion = br.readLine();
 
       System.out.print("Precio Unitario: ");
-      precio = sc.nextDouble();
-      sc.nextLine();
+      precio = Double.parseDouble(br.readLine());
 
       f.agregarProducto(cant, descripcion, precio);
 
@@ -50,7 +48,7 @@ public class FacturaTest {
     }
 
     System.out.print("Descuento %: ");
-    int descuento = sc.nextInt();
+    int descuento = Integer.parseInt(br.readLine());
     f.setDescuento((double)descuento/100.0);
 
     System.out.println("\n-------------------------------");
