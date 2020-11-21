@@ -67,6 +67,25 @@ public class AddressBook {
                     }
                     break;
                 case "4":
+                    System.out.print("Ingrese un nombre para eliminar: ");
+                    String nombreRemover = br.readLine();
+                    query = "SELECT COUNT(*) as cant FROM contacto WHERE nombre = '%s'; COMMIT;";
+                    query = String.format(query, nombreRemover);
+                    if (contactosDb.executeQuery(query, "rs1")) {
+                        contactosDb.next("rs1");
+                        String cantidad = contactosDb.getString("cant", "rs1");
+                        if(cantidad.equals("1")) {
+                            query = "DELETE FROM contacto WHERE nombre = '%s'";
+                            query = String.format(query, nombreRemover);
+                            if (contactosDb.executeNonQuery(query)) {
+                                System.out.println("Se borro el contacto exitosamente");
+                            } else {
+                                System.out.println("Ocurrio un error al eliminar al contacto");
+                            }
+                        } else {
+                            System.out.println("El usuario con el nombre ingresado no existe y no puede ser borrado");
+                        }
+                    }
                     break;
                 case "5":
                     flag = false;
